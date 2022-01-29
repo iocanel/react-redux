@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import TodoList from './TodoList';
+import NewTodoForm from './NewTodoForm';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [todos, setTodos] = useState([]);
+
+    useEffect (() => {
+        var initial = [];
+        initial.push({"title": "Create template"});
+        initial.push({"title": "Add Redux"});
+        setTodos(initial);
+    }, []);
+
+    const add = (newTodo) => {
+        setTodos(todos => [...todos, newTodo]);
+    };
+
+    const remove = (title) => {
+        setTodos(todos.filter(todo => todo.title !== title));
+    }
+ 
+    return (
+            <>
+            <div className="App">
+              <h1>Todo App </h1>
+              <NewTodoForm add={add}/>
+              <TodoList todos={todos} remove={remove}/>
+            </div>
+            </>
+    );
 }
 
 export default App;
