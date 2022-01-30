@@ -7,10 +7,10 @@ function App() {
     const [todos, setTodos] = useState([]);
 
     useEffect (() => {
-        var initial = [];
-        initial.push({"title": "Create template"});
-        initial.push({"title": "Add Redux"});
-        setTodos(initial);
+        //Read todos.json from 'public'
+        fetch("./todos.json")
+            .then(res => res.json())
+            .then(data => setTodos(data));
     }, []);
 
     const add = (newTodo) => {
